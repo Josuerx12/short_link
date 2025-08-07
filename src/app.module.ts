@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { UrlsModule } from './modules/urls/urls.module';
+import { UrlVisitsModule } from './modules/url_visits/url_visits.module';
 
 @Module({
   imports: [
@@ -23,11 +24,13 @@ import { UrlsModule } from './modules/urls/urls.module';
         autoLoadEntities: true,
         synchronize: configService.get<string>('MODE') === 'dev' ? true : false,
         logging: configService.get<string>('MODE') === 'dev' ? true : false,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),
     UsersModule,
     UrlsModule,
+    UrlVisitsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
