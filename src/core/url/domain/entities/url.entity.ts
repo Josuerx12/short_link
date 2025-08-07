@@ -1,5 +1,5 @@
 import { AbstractEntity } from 'src/core/shared/domain/abstracts/entity';
-import { UrlVisitsEntity } from 'src/core/url-visits/domain/entities/url-visit.entity';
+import { UrlVisitEntity } from 'src/core/url-visits/domain/entities/url-visit.entity';
 import { UserEntity } from 'src/core/user/domain/entities/user.entity';
 import {
   Column,
@@ -10,7 +10,6 @@ import {
   OneToMany,
 } from 'typeorm';
 
-// @Index('idx_urls_short_code', ['shortCode'], { unique: true })
 @Entity('urls')
 export class UrlEntity extends AbstractEntity {
   @Column({ type: 'text', name: 'original_url' })
@@ -29,6 +28,6 @@ export class UrlEntity extends AbstractEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @OneToMany(() => UrlVisitsEntity, (visit) => visit.url)
-  visits: UrlVisitsEntity[];
+  @OneToMany(() => UrlVisitEntity, (visit) => visit.url)
+  visits: UrlVisitEntity[];
 }
