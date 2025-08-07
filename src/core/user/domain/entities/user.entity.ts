@@ -2,7 +2,7 @@ import { AbstractEntity } from 'src/core/shared/domain/abstracts/entity';
 import { UrlEntity } from 'src/core/url/domain/entities/url.entity';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
-@Index('idx_urls_user_id', ['user'])
+// @Index('idx_urls_user_id', ['user'])
 @Entity('users')
 export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', length: 100 })
