@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { UrlsModule } from './modules/urls/urls.module';
-import { UrlVisitsModule } from './modules/url_visits/url_visits.module';
+import { UrlVisitsModule } from './modules/url-visits/url_visits.module';
+import { UnitOfWorkModule } from './modules/unit-of-work/unit-of-work.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UrlVisitsModule } from './modules/url_visits/url_visits.module';
     UsersModule,
     UrlsModule,
     UrlVisitsModule,
+    UnitOfWorkModule,
   ],
   controllers: [AppController],
   providers: [AppService],
