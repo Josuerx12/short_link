@@ -1,19 +1,36 @@
+import { compareSync, hashSync } from 'bcryptjs';
 import { AbstractEntity } from 'src/core/shared/domain/abstracts/entity';
 import { UrlEntity } from 'src/core/url/domain/entities/url.entity';
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { v4 } from 'uuid';
 
-// @Index('idx_urls_user_id', ['user'])
-@Entity('users')
-export class UserEntity extends AbstractEntity {
-  @Column({ type: 'varchar', length: 100 })
+export type UserEntityProps = {
+  id?: string;
   name: string;
-
-  @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
-
-  @Column({ type: 'varchar', length: 20 })
   password: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
 
-  @OneToMany(() => UrlEntity, (url) => url.user)
-  urls: UrlEntity[];
+export class UserEntity extends AbstractEntity {
+  name: string;
+  email: string;
+  password: string;
+  urls?: UrlEntity[];
+
+  constructor(props: UserEntityProps) {
+    super();
+    this.id = props.id || v4();
+    this.name = props.name;
+    this.email = props.email;
+    this.password = props.password;
+  }
+
+  static hashPassword(password: string): string {
+    return hashSync(password, 10);
+  }
+
+  comparePassword(password: string): boolean {
+    return compareSync(password, this.password);
+  }
 }
