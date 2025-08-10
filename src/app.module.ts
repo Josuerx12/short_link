@@ -6,6 +6,8 @@ import { UsersModule } from './modules/users/users.module';
 import { UrlsModule } from './modules/urls/urls.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { ApplicationModule } from './modules/application/application.module';
+import { AuthGuardModule } from './modules/auth-guard/auth-guard.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ApplicationModule } from './modules/application/application.module';
     UsersModule,
     UrlsModule,
     ApplicationModule,
+    AuthGuardModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
