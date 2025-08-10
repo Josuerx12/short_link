@@ -108,7 +108,9 @@ export class UserRepository implements IUserRepository {
     });
 
     if (affectedCount === 0) {
-      throw new NotFoundException(`User with id ${props.id} not found.`);
+      throw new NotFoundException(
+        `User with this id ${props.id} does not exist.`,
+      );
     }
 
     return props;

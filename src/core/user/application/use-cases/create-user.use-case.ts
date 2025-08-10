@@ -18,7 +18,9 @@ export class CreateUserUseCase implements IUseCase<CreateUserDto, UserEntity> {
 
       const user = new UserEntity({ email, name, password: hashedPassword });
 
-      return await this.repository.create(user, transaction);
+      await this.repository.create(user, transaction);
+
+      return user;
     });
   }
 }

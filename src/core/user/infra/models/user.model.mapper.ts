@@ -3,7 +3,8 @@ import { UserModel } from './user.model';
 
 export class UserModelMapper {
   static toModel(entity: UserEntity): UserModel {
-    return new UserModel({
+    return UserModel.build({
+      id: entity.id,
       email: entity.email,
       name: entity.name,
       password: entity.password,
@@ -18,6 +19,7 @@ export class UserModelMapper {
       password: model.password,
       createdAt: model.created_at,
       updatedAt: model.updated_at,
+      deletedAt: model.deleted_at,
     });
 
     return entity;

@@ -10,6 +10,7 @@ export type UserEntityProps = {
   password: string;
   createdAt?: Date;
   updatedAt?: Date;
+  deletedAt?: Date | null;
 };
 
 export class UserEntity extends AbstractEntity {
@@ -24,6 +25,9 @@ export class UserEntity extends AbstractEntity {
     this.name = props.name;
     this.email = props.email;
     this.password = props.password;
+    this.createdAt = props.createdAt || new Date();
+    this.updatedAt = props.updatedAt || new Date();
+    this.deletedAt = props.deletedAt;
   }
 
   static hashPassword(password: string): string {

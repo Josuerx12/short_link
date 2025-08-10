@@ -15,6 +15,8 @@ export type UserModelProps = {
   timestamps: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+  paranoid: true,
 })
 export class UserModel extends BaseModel<UserModelProps> {
   @Column({
