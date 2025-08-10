@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Transaction } from 'sequelize';
-import { UnitOfWork } from '../infraesctructure/unit-of-work';
+import { UnitOfWork } from '../infra/unit-of-work';
 
 @Injectable()
 export class ApplicationService {
