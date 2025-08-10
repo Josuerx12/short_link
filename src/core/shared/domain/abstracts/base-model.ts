@@ -1,5 +1,6 @@
-import { Column, DataType, Model } from 'sequelize-typescript';
+import { Column, DataType, DefaultScope, Model } from 'sequelize-typescript';
 
+@DefaultScope(() => ({ raw: true }))
 export default class BaseModel<
   TModel extends object = any,
 > extends Model<TModel> {
@@ -24,4 +25,10 @@ export default class BaseModel<
     allowNull: true,
   })
   declare updated_at: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  declare deleted_at: Date;
 }
