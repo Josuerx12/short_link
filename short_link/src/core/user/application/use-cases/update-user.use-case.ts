@@ -6,7 +6,7 @@ import {
 import { UserEntity } from '../../domain/entities/user.entity';
 import { ApplicationService } from 'src/core/shared/application/application.service';
 import { IUserRepository } from '../../domain/contracts/user-repository.interface';
-import { NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 
 export class UpdateUserUseCase
   implements IUseCase<UpdateUserDto & UpdateUserByIdDto, UserEntity>
@@ -48,7 +48,7 @@ export class UpdateUserUseCase
     const user = await this.repository.getByEmail(email);
 
     if (user) {
-      throw new Error('Email already in use');
+      throw new ConflictException(`E-mail ${email} already in use.`);
     }
 
     entity.email = email;

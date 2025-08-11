@@ -33,13 +33,17 @@ export class UrlVisitsService {
   }
 
   async findAllUrlVisits(urlId: string) {
-    const models = await this.urlVisitModel.find({ urlId }).exec();
+    const models = await this.urlVisitModel
+      .find({ urlId, deletedAt: null })
+      .exec();
 
     return models.map((model) => model.toObject());
   }
 
   async findOne(id: string) {
-    const model = await this.urlVisitModel.findOne({ _id: id }).exec();
+    const model = await this.urlVisitModel
+      .findOne({ _id: id, deletedAt: null })
+      .exec();
 
     if (!model) {
       throw new NotFoundException(`UrlVisit with ID ${id} not found`);

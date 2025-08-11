@@ -24,6 +24,9 @@ export class UrlVisit {
 
   @Prop()
   userAgent?: string;
+
+  @Prop()
+  deletedAt?: Date;
 }
 
 export const UrlVisicSchema = SchemaFactory.createForClass(UrlVisit);

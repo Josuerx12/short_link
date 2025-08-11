@@ -6,20 +6,27 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
+  constructor(private readonly configService: ConfigService) {}
+
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const apiKey = context.switchToHttp().getRequest().headers['x-api-key'];
+    const apiKey = this.configService.get<string>('API_KEY');
 
-    if (!apiKey) {
+    const apiKeyFromHeaders = context.switchToHttp().getRequest().headers[
+      'x-api-key'
+    ];
+
+    if (!apiKeyFromHeaders) {
       throw new UnauthorizedException();
     }
 
-    if (apiKey !== process.env.API_KEY) {
+    if (apiKeyFromHeaders !== apiKey) {
       throw new UnauthorizedException();
     }
 

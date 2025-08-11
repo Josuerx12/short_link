@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UrlVisitsModule } from './url-visits/url-visits.module';
@@ -15,29 +13,25 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => {
-        console.log(configService.get<string>('DB_URI'));
-
-        return {
-          uri: configService.get<string>('DB_URI'),
-          auth: {
-            username: configService.get<string>('DB_USER'),
-            password: configService.get<string>('DB_PASS'),
-          },
-        };
-      },
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('DB_URI'),
+        auth: {
+          username: configService.get<string>('DB_USER'),
+          password: configService.get<string>('DB_PASS'),
+        },
+      }),
       inject: [ConfigService],
     }),
     UrlVisitsModule,
     ShortUrlGatewayModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
-
     {
       provide: APP_GUARD,
-      useClass: TokenGuard,
+      useFactory: (configService: ConfigService) =>
+        new TokenGuard(configService),
+      inject: [ConfigService],
     },
   ],
 })

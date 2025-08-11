@@ -1,5 +1,5 @@
 export type PaginationOutputProps<DataT> = {
-  data: DataT[];
+  items: DataT[];
   perPage: number;
   page: number;
   totalPages: number;
@@ -7,7 +7,7 @@ export type PaginationOutputProps<DataT> = {
 };
 
 export class PaginationOutput<DataT> {
-  data: DataT[];
+  items: DataT[];
   meta: {
     totalPages: number;
     totalItems: number;
@@ -16,7 +16,7 @@ export class PaginationOutput<DataT> {
   };
 
   constructor(props: PaginationOutputProps<DataT>) {
-    this.data = props.data;
+    this.items = props.items;
     this.meta = {
       totalPages: props.totalPages,
       totalItems: props.totalItems,

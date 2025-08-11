@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { UrlModel } from 'src/core/url/infra/models/url.model';
 import { UserModel } from 'src/core/user/infra/models/user.model';
 
 @Global()
@@ -17,7 +18,7 @@ import { UserModel } from 'src/core/user/infra/models/user.model';
           username: configService.get<string>('DB_USERNAME'),
           password: configService.get<string>('DB_PASSWORD'),
           autoLoadModels: false,
-          models: [UserModel],
+          models: [UserModel, UrlModel],
           dialectOptions: {
             useUTC: false,
             timezone: '-03:00',

@@ -14,6 +14,11 @@ export const AuthStorage = {
   },
 
   set(payload: IAuthStorage) {
-    return this.storage.enterWith(payload);
+    const store = this.storage.getStore();
+    if (store) {
+      Object.assign(store, payload);
+      return;
+    }
+    return this.storage.run(payload, () => {});
   },
 };

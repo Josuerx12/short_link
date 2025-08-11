@@ -6,6 +6,8 @@ Este `README` te guiará passo a passo na configuração e execução do projeto
 
 Arquitetura utilizada `Domain Driven Design` - Projeto principal.
 
+Collection do postman:
+
 ---
 
 ### 🚀 Como Rodar o Projeto

@@ -11,7 +11,7 @@ import { ShortUrlGateway } from 'src/url-visits/gateway/short-url.gateway';
       provide: ShortUrlGateway,
       useFactory: (httpService: HttpService, configService: ConfigService) =>
         new ShortUrlGateway(httpService, configService),
-      inject: [ConfigService, HttpService],
+      inject: [HttpService, ConfigService],
     },
   ],
   exports: [
@@ -19,7 +19,7 @@ import { ShortUrlGateway } from 'src/url-visits/gateway/short-url.gateway';
       provide: ShortUrlGateway,
       useFactory: (httpService: HttpService, configService: ConfigService) =>
         new ShortUrlGateway(httpService, configService),
-      inject: [ConfigService, HttpService],
+      inject: [HttpService, ConfigService],
     },
   ],
 })

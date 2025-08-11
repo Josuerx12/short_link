@@ -1,4 +1,10 @@
-import { BelongsTo, Column, DataType, ForeignKey } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Table,
+} from 'sequelize-typescript';
 import BaseModel from 'src/core/shared/domain/abstracts/base-model';
 import { UserModel } from 'src/core/user/infra/models/user.model';
 
@@ -13,6 +19,14 @@ export type UrlModelProps = {
   deleted_at?: Date | null;
 };
 
+@Table({
+  tableName: 'urls',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+  paranoid: true,
+})
 export class UrlModel extends BaseModel<UrlModelProps> {
   @ForeignKey(() => UserModel)
   @Column({

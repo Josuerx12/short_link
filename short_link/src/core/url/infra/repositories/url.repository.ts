@@ -8,7 +8,7 @@ import { UrlEntity } from '../../domain/entities/url.entity';
 import { UrlModel } from '../models/url.model';
 import { UrlModelMapper } from '../models/url.model.mapper';
 import { AuthStorage } from 'src/core/shared/application/auth-storage';
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 export class UrlRepository implements IUrlRepository {
   constructor(private readonly model: typeof UrlModel) {}
@@ -29,26 +29,21 @@ export class UrlRepository implements IUrlRepository {
   }
 
   async getAll(props: UrlInputParams): Promise<UrlOutputParams> {
-    let where: Record<string, any> = {};
+    const user = AuthStorage.get()?.user;
 
-    const { user } = AuthStorage.get();
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const where: Record<string, any> = {
+      user_id: user.id,
+    };
 
     if (props.filter) {
-      where = {
-        [Op.or]: [
-          {
-            original_url: {
-              [Op.iLike]: props.filter,
-            },
-          },
-          {
-            short_code: {
-              [Op.iLike]: props.filter,
-            },
-          },
-        ],
-        ...(user && { user_id: user.id }),
-      };
+      where[Op.or as any] = [
+        { original_url: { [Op.like]: `%${props.filter}%` } },
+        { short_code: { [Op.like]: `%${props.filter}%` } },
+      ];
     }
 
     const count = await this.model.count({
