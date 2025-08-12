@@ -14,9 +14,10 @@ Collection do postman: https://drive.google.com/file/d/1YC7vJ3aWwgnotMCjCSfMC1Dj
 
 Siga estes passos para ter o projeto rodando localmente.
 
-#### 1. Configurar as Variáveis de Ambiente
+#### 1. Configurar as Variáveis de Ambiente e instalar dependencias
 
 Crie arquivos `.env` em ambos os diretórios de projeto (`short_link` e `short_link_visits`) e preencha as variáveis de ambiente necessárias.
+Rodar yarn install em cada pasta do projeto.
 
 #### 2. Iniciar os Serviços
 
